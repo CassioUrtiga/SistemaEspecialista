@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TriagemRH</title>
+    <link rel="stylesheet" href="pgInicial.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>TriagemRH</h1>
+        <p>Bem-vindo ao TriagemRH! Este é um sistema especialista em RH para ajudá-lo na triagem de candidatos a
+            emprego.</p>
+
+        <div id="question" style="display: none;">
+            <p>Qual é o seu nível em "tal coisa"?</p>
+            <div class="level-selector">
+                <input type="radio" id="nivel1" name="nivel" value="1">
+                <label for="nivel1" data-number="1"></label>
+                <input type="radio" id="nivel2" name="nivel" value="2">
+                <label for="nivel2" data-number="2"></label>
+                <input type="radio" id="nivel3" name="nivel" value="3">
+                <label for="nivel3" data-number="3"></label>
+                <input type="radio" id="nivel4" name="nivel" value="4">
+                <label for="nivel4" data-number="4"></label>
+                <input type="radio" id="nivel5" name="nivel" value="5">
+                <label for="nivel5" data-number="5"></label>
+            </div>
+            <br><br>
+            <button id="proxima" class="btn">Próxima</button>
+        </div>
+        <button id="iniciar" class="btn">Iniciar</button>
+    </div>
+
+    <script>
+        document.getElementById('iniciar').addEventListener('click', function () {
+            document.getElementById('question').style.display = 'block';
+            document.getElementById('iniciar').style.display = 'none';
+        });
+
+        document.getElementById('proxima').addEventListener('click', function () {
+            // Aqui você pode adicionar a lógica para passar para a próxima pergunta
+        });
+    </script>
+</body>
+
+</html>
