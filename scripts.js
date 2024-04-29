@@ -6,9 +6,10 @@ let index = 0;
 let pontuacao = 0;
 let perguntas = [];
 let categoria = 0;
-let nivel = 'pergunta';
 let valorSelecionado = '';
-
+let indexArea = 0;
+let areas = ['areaPretendida', 'junior', 'pleno', 'senior'];
+let nivel = areas[indexArea];
 
 function obterValorSelecionado() {
     // Selecione todos os inputs do tipo radio com o atributo name="nivel"
@@ -41,36 +42,57 @@ function respostas() {
         const inputNivel = [1, 2, 3, 4, 5];
         inputNivel.forEach(numero => {
             respostasHtml += `<input type="radio" class="niveis" id="nivel${numero}" name="nivel" value="${numero}">
-                              <label for="nivel${numero}" data-number="${numero}"></label>\n`;
+                              <label for="nivel${numero}" class="niveis" data-number="${numero}"></label>\n`;
         });
     }
     return respostasHtml;
 }
 
-
 // Função para verificar e exibir a próxima pergunta
 function proximaQuestao() {
-    valorSelecionado = obterValorSelecionado();
-    console.log("valor selecionado:"+valorSelecionado)
-    let respostasHtml = respostas();
 
+    valorSelecionado = obterValorSelecionado();
     if (iniciar.textContent == 'Iniciar') {
         trocarBotao();
     }
+    
+    if (valorSelecionado == "Front-End") {
+        categoria = 1;
+        nivel = "junior";
+    }else if (valorSelecionado == "Back-End") {
+        categoria = 2;
+        nivel = "junior";
+    }else if (categoria !== 0){
+        pontuacao += parseInt(obterValorSelecionado())
+    }
+
+    let respostasHtml = respostas();
     perguntas = questoes[categoria][nivel]
-    if (index <= perguntas.length) {
-        console.log('aqui dentro')
+
+    console.log("pontuacao: " + pontuacao)
+
+    if (index < perguntas.length) {
+        console.log(index)
         let questaoHtml = perguntas[index];
         let questao = document.querySelector('.questoes');
         let respostas = document.querySelector('.level-selector');
 
         respostas.innerHTML = respostasHtml;
         questao.innerHTML = questaoHtml;
-        index++;
-    } else if (pontuacao / perguntas.length == 5) {
-
+        
     }
-    
+
+    if (index == perguntas.length-1) {
+        index = 0;
+    }else{
+        index++;
+    }
+
+    if (pontuacao/perguntas.length == 5 || categoria == 0) {
+        indexArea++;
+        nivel = areas[indexArea];
+    }
+
 }
 
 // Função para trocar o botão de Iniciar para Próxima

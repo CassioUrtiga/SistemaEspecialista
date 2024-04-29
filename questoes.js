@@ -1,5 +1,5 @@
 const areaPretendida = {
-    pergunta: ["Qual a area pretendida?"],
+    areaPretendida: ["Qual a area pretendida?"],
     areas: ["Back-End", "Front-End"]
 }
 const perguntasFrontEnd = {
@@ -52,4 +52,4 @@ const perguntasBackEnd = {
     ]
 };
 
-export default [areaPretendida, perguntasBackEnd, perguntasFrontEnd];
+export default [areaPretendida, perguntasFrontEnd, perguntasBackEnd];
