@@ -55,22 +55,28 @@ function proximaQuestao() {
     if (iniciar.textContent == 'Iniciar') {
         trocarBotao();
     }
-    
+
     if (valorSelecionado == "Front-End") {
         categoria = 1;
         nivel = "junior";
-    }else if (valorSelecionado == "Back-End") {
+    } else if (valorSelecionado == "Back-End") {
         categoria = 2;
         nivel = "junior";
-    }else if (categoria !== 0){
+    } else if (categoria !== 0) {
         pontuacao += parseInt(obterValorSelecionado())
     }
 
+
     let respostasHtml = respostas();
-    perguntas = questoes[categoria][nivel]
-
+    
     console.log("pontuacao: " + pontuacao)
-
+    if (pontuacao / perguntas.length == 5) {
+        index = 0;
+        indexArea++;
+        nivel = areas[indexArea];
+    }
+    perguntas = questoes[categoria][nivel]
+    
     if (index < perguntas.length) {
         console.log(index)
         let questaoHtml = perguntas[index];
@@ -79,16 +85,11 @@ function proximaQuestao() {
 
         respostas.innerHTML = respostasHtml;
         questao.innerHTML = questaoHtml;
-        
-    }
-
-    if (index == perguntas.length-1) {
-        index = 0;
-    }else{
         index++;
     }
-
-    if (pontuacao/perguntas.length == 5 || categoria == 0) {
+    console.log("tamanho do array: " + perguntas.length);
+    if (categoria == 0) {
+        index = 0;
         indexArea++;
         nivel = areas[indexArea];
     }
