@@ -3,7 +3,8 @@ import questoes from "./questoes.js";
 
 let iniciar = document.getElementById("iniciarBtn");
 let index = 0;
-let pontuacao = 0;
+let pontuacao = [];
+let parcial = 0;
 let perguntas = [];
 let categoria = 0;
 let valorSelecionado = '';
@@ -47,6 +48,20 @@ function respostas() {
     }
     return respostasHtml;
 }
+function validacaoDeNivel() {
+    let media = parcial/perguntas.length;
+    console.log("pontuacao: " + pontuacao)
+    if ( media == 5) {
+        indexArea++;
+        nivel = areas[indexArea];
+        index = 0;
+        pontuacao.push(parcial);
+        parcial = 0;
+    }else if (index == perguntas.length && categoria !== 0) {
+        pontuacao.push(parcial);
+        gerarGrafico(pontuacao);
+    }
+}
 
 // Função para verificar e exibir a próxima pergunta
 function proximaQuestao() {
@@ -63,15 +78,18 @@ function proximaQuestao() {
         categoria = 2;
         nivel = "junior";
     }else if (categoria !== 0){
-        pontuacao += parseInt(obterValorSelecionado())
+        parcial += parseInt(obterValorSelecionado())
     }
 
     let respostasHtml = respostas();
+
+    validacaoDeNivel();
+    
+    console.log("nivel: "+ nivel)
     perguntas = questoes[categoria][nivel]
 
-    console.log("pontuacao: " + pontuacao)
 
-    if (index <= perguntas.length) {
+    if (index < perguntas.length) {
         console.log(index)
         let questaoHtml = perguntas[index];
         let questao = document.querySelector('.questoes');
@@ -86,22 +104,21 @@ function proximaQuestao() {
         barraProgresso.style.width = porcentagem + '%';
         barraProgresso.setAttribute('aria-valuenow', porcentagem);
         barraProgresso.textContent = porcentagem + '%';
-    }
-
-    if (index == perguntas.length) {
-        gerarGrafico();
-    }else{
         index++;
     }
-
-    if (pontuacao/perguntas.length == 5 || categoria == 0) {
+    
+    if (categoria == 0) {
+        console.log("executou!!")
+        index = 0;
         indexArea++;
         nivel = areas[indexArea];
     }
+    
+    
 
 }
 
-function gerarGrafico(){
+function gerarGrafico([junior=0, pleno=0, senior=0]){
     document.getElementById("quadro1").style.display = "none";
     document.getElementById("quadro2").style.display = "block";
 
@@ -113,7 +130,7 @@ function gerarGrafico(){
             labels: ['Júnior', 'Pleno', 'Senior'],
             datasets: [{
                 label: 'Nível de aptidão',
-                data: [calculoJunior(), calculoPleno(), calculoSenior()],
+                data: [junior, pleno, senior],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
