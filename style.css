@@ -12,9 +12,8 @@ body {
     gap: 20px;
   }
   .content {
-    width: 50%; /* Definindo a largura como metade da tela */
-    max-width: 600px; /* Limitando a largura máxima */
-    margin: 40px auto; /* Centralizando verticalmente e horizontalmente */
+    width: 50vw; /* Definindo a largura como metade da tela */
+    margin: 30px auto; /* Centralizando verticalmente e horizontalmente */
     padding: 20px;
     background-color: #fff;
     border-radius: 8px;
