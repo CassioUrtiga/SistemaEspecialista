@@ -1,21 +1,104 @@
-h1{
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
     text-align: center;
+  }
+  .container {
+    margin: 40px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .content {
+    width: 50vw; /* Definindo a largura como metade da tela */
+    margin: 30px auto; /* Centralizando verticalmente e horizontalmente */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-main{
-    display: grid;
-    grid-template-columns: 3fr 3fr;
-    grid-template-rows: 100vh;
-    grid-template-areas: "formulario grafico";
-    gap: 2px 2px;
+  h1 {
+    color: #333;
+  }
+  p {
+    color: #666;
+    margin-bottom: 20px;
+  }
+  .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #28a745; /* Mudança da cor para verde */
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    margin: 20px;
 }
 
-form{
-    grid-area: formulario;
+.btn:hover {
+    background-color: #218838; /* Mudança da cor de hover para verde mais escuro */
 }
 
-.canvas{
-    grid-area: grafico;
-    margin: auto;
-    width: 100%;
+  .level-selector {
+    display: flex;
+    justify-content: center;
+  }
+  .level-selector input[type="radio"] {
+    display: none;
+  }
+  .level-selector .niveis {
+    position: relative;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #ccc;
+    margin: 0 15px;
+    cursor: pointer;
+    line-height: 30px;
+    text-align: center;
+  }
+  .level-selector input[type="radio"]:checked + label {
+    background-color: #007bff;
+  }
+  .level-selector .niveis::before {
+    content: attr(data-number);
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .level-selector .areas {
+    /* Adicione estilos específicos aqui */
+    display: inline-block;
+    background-color: #ff0000; /* Por exemplo, cor de fundo vermelha */
+    color: #ffffff; /* Por exemplo, cor do texto branco */
 }
+.level-selector .areas::before {
+  content: attr(data-number);
+  color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.level-selector .areas {
+  position: relative;
+  display: inline-block;
+  width: 800px;
+  height: 30px;
+  border-radius: 5px;
+  background-color: #ccc;
+  margin: 0 15px;
+  cursor: pointer;
+  /* line-height: 30px;  */
+  text-align: center;
+}
+
+/* Estilo para labels com a classe .niveis */
+
