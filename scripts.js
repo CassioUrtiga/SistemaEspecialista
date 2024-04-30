@@ -49,18 +49,30 @@ function respostas() {
     return respostasHtml;
 }
 function validacaoDeNivel() {
-    let media = parcial/perguntas.length;
-    console.log("pontuacao: " + pontuacao)
-    if ( media == 5) {
-        indexArea++;
-        nivel = areas[indexArea];
-        index = 0;
+    let media = parcial / perguntas.length;
+    console.log("media: " + media);
+    if (media == 5) {
         pontuacao.push(parcial);
-        parcial = 0;
-    }else if (index == perguntas.length && categoria !== 0) {
+        if (nivel == "senior") {
+            gerarGrafico(pontuacao);
+        } else {
+            indexArea++;
+            nivel = areas[indexArea];
+            index = 0;
+            parcial = 0;
+        }
+    } else if (index == perguntas.length && categoria !== 0) {
         pontuacao.push(parcial);
         gerarGrafico(pontuacao);
     }
+    console.log("pontuacao: " + pontuacao);
+}
+function progresso() {
+    let porcentagem = Math.round(index * 100 / perguntas.length);
+    let barraProgresso = document.querySelector('.progress-bar');
+    barraProgresso.style.width = porcentagem + '%';
+    barraProgresso.setAttribute('aria-valuenow', porcentagem);
+    barraProgresso.textContent = porcentagem + '%';
 }
 
 // Função para verificar e exibir a próxima pergunta
@@ -70,24 +82,24 @@ function proximaQuestao() {
     if (iniciar.textContent == 'Iniciar') {
         trocarBotao();
     }
-    
+
     if (valorSelecionado == "Front-End") {
         categoria = 1;
         nivel = "junior";
-    }else if (valorSelecionado == "Back-End") {
+    } else if (valorSelecionado == "Back-End") {
         categoria = 2;
         nivel = "junior";
-    }else if (categoria !== 0){
+    } else if (categoria !== 0) {
         parcial += parseInt(obterValorSelecionado())
     }
 
     let respostasHtml = respostas();
 
     validacaoDeNivel();
-    
-    console.log("nivel: "+ nivel)
-    perguntas = questoes[categoria][nivel]
+    progresso()
 
+    console.log("nivel: " + nivel)
+    perguntas = questoes[categoria][nivel]
 
     if (index < perguntas.length) {
         console.log(index)
@@ -97,28 +109,23 @@ function proximaQuestao() {
 
         respostas.innerHTML = respostasHtml;
         questao.innerHTML = questaoHtml;
-        
+
         // Atualiza a barra de progresso
-        let porcentagem = (index * 100 / perguntas.length);
-        let barraProgresso = document.querySelector('.progress-bar');
-        barraProgresso.style.width = porcentagem + '%';
-        barraProgresso.setAttribute('aria-valuenow', porcentagem);
-        barraProgresso.textContent = porcentagem + '%';
         index++;
     }
-    
+
     if (categoria == 0) {
         console.log("executou!!")
         index = 0;
         indexArea++;
         nivel = areas[indexArea];
     }
-    
-    
+
+
 
 }
 
-function gerarGrafico([junior=0, pleno=0, senior=0]){
+function gerarGrafico([junior = 0, pleno = 0, senior]) {
     document.getElementById("quadro1").style.display = "none";
     document.getElementById("quadro2").style.display = "block";
 
@@ -156,7 +163,7 @@ function gerarGrafico([junior=0, pleno=0, senior=0]){
                     beginAtZero: true,
                     max: 100,
                     ticks: {
-                        callback: function(value) {
+                        callback: function (value) {
                             return value + "%";
                         }
                     }
@@ -166,15 +173,15 @@ function gerarGrafico([junior=0, pleno=0, senior=0]){
     });
 }
 
-function calculoJunior(){
+function calculoJunior() {
     return 10;
 }
 
-function calculoPleno(){
+function calculoPleno() {
     return 50;
 }
 
-function calculoSenior(){
+function calculoSenior() {
     return 100;
 }
 
