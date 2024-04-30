@@ -172,19 +172,6 @@ function gerarGrafico([junior = 0, pleno = 0, senior]) {
         }
     });
 }
-
-function calculoJunior() {
-    return 10;
-}
-
-function calculoPleno() {
-    return 50;
-}
-
-function calculoSenior() {
-    return 100;
-}
-
 // Função para trocar o botão de Iniciar para Próxima
 function trocarBotao() {
     let iniciar = document.getElementById("iniciarBtn");
